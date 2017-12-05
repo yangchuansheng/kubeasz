@@ -3,11 +3,11 @@
 ``` bash
 roles/docker/
 ├── files
-│   ├── daemon.json
-│   ├── docker
-│   └── docker-tag
+│   ├── daemon.json
+│   ├── docker
+│   └── docker-tag
 ├── tasks
-│   └── main.yml
+│   └── main.yml
 └── templates
     └── docker.service.j2
 ```
@@ -24,7 +24,7 @@ Documentation=http://docs.docker.io
 [Service]
 Environment="PATH={{ bin_dir }}:/bin:/sbin:/usr/bin:/usr/sbin"
 ExecStart={{ bin_dir }}/dockerd --log-level=error
-ExecStartPost=/sbin/iptables -I FORWARD -s 0.0.0.0/0 -j ACCEPT
+ExecStartPost=/sbin/iptables -P FORWARD ACCEPT
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=on-failure
 RestartSec=5
@@ -38,7 +38,7 @@ KillMode=process
 WantedBy=multi-user.target
 ```
 + dockerd 运行时会调用其它 docker 命令，如 docker-proxy，所以需要将 docker 命令所在的目录加到 PATH 环境变量中；
-+ docker 从 1.13 版本开始，将`iptables` 的`filter` 表的`FORWARD` 链的默认策略设置为`DROP`，从而导致 ping 其它 Node 上的 Pod IP 失败，因此必须在 `filter` 表的`FORWARD` 链增加一条默认允许规则 `iptables -I FORWARD -s 0.0.0.0/0 -j ACCEPT`
++ docker 从 1.13 版本开始，将`iptables` 的`filter` 表的`FORWARD` 链的默认策略设置为`DROP`，从而导致 ping 其它 Node 上的 Pod IP 失败，因此将其默认规则改为`ACCEPT`： `iptables -P FORWARD ACCEPT`
 + 运行`dockerd --help` 查看所有可以可配置参数，确保默认开启 `--iptables` 和 `--ip-masq` 选项
 
 ### 配置国内镜像加速
@@ -100,7 +100,7 @@ docker官方目前没有提供在命令行直接查询某个镜像的tag信息�
 "v1.7.1"
 "v1.8.0"
 ``` 
-+ 需要先apt安装轻量JSON处理程序 `jq`
++ 需要先yum安装轻量JSON处理程序 `jq`
 + 然后下载脚本即可使用
 + 脚本很简单，就一行命令如下
 
