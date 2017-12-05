@@ -3,7 +3,7 @@
 ``` bash
 roles/etcd
 ├── tasks
-│   └── main.yml
+│   └── main.yml
 └── templates
     ├── etcd-csr.json.j2
     └── etcd.service.j2
@@ -30,8 +30,8 @@ kuberntes 系统使用 etcd 存储所有数据，是最重要的组件之一，�
   "names": [
     {
       "C": "CN",
-      "ST": "HangZhou",
-      "L": "XS",
+      "ST": "ShangHai",
+      "L": "ShangHai",
       "O": "k8s",
       "OU": "System"
     }
