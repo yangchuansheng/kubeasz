@@ -16,7 +16,7 @@ master节点的高可用主要就是实现apiserver组件的高可用，在之�
 ``` text
 roles/kube-master/
 ├── tasks
-│   └── main.yml
+│   └── main.yml
 └── templates
     ├── basic-auth.csv.j2
     ├── kube-apiserver.service.j2
@@ -51,8 +51,8 @@ roles/kube-master/
   "names": [
     {
       "C": "CN",
-      "ST": "HangZhou",
-      "L": "XS",
+      "ST": "ShangHai",
+      "L": "ShangHai",
       "O": "k8s",
       "OU": "System"
     }
@@ -88,7 +88,6 @@ ExecStart={{ bin_dir }}/kube-apiserver \
   --bind-address={{ NODE_IP }} \
   --insecure-bind-address=127.0.0.1 \
   --authorization-mode=Node,RBAC \
-  --runtime-config=rbac.authorization.k8s.io/v1 \
   --kubelet-https=true \
   --anonymous-auth=false \
   --basic-auth-file={{ ca_dir }}/basic-auth.csv \
