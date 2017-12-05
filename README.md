@@ -8,7 +8,7 @@
 
 **二进制方式部署优势：有助于理解系统各组件的交互原理和熟悉组件启动参数，有助于快速排查解决实际问题**
 
-文档基于`Ubuntu 16.04`，其他系统如`CentOS 7`需要读者自行替换部分命令；由于使用经验有限和简化脚本考虑，已经尽量避免`ansible-playbook`的高级特性和复杂逻辑。
+文档基于`CentOS 7`，其他系统如`Ubuntu 16.04`需要读者自行替换部分命令；由于使用经验有限和简化脚本考虑，已经尽量避免`ansible-playbook`的高级特性和复杂逻辑。
 
 你可能需要掌握基本`kubernetes` `docker` `linux shell` 知识，关于`ansible`建议阅读 [ansible超快入门](http://weiweidefeng.blog.51cto.com/1957995/1895261) 基本够用。
 
@@ -19,7 +19,7 @@
 1. kubernetes	v1.8.4
 1. etcd		v3.2.10
 1. docker	17.09.0-ce
-1. calico/node	v2.6.2
+1. calico/node	v2.6.2p
 
 附：集群用到的所有二进制文件已打包好供下载 [https://pan.baidu.com/s/1eSetFSA](https://pan.baidu.com/s/1eSetFSA)
 
@@ -40,7 +40,7 @@
 
 ## 使用指南
 
-基本k8s集群安装完成后，需要安装一些常用插件(`kubedns` `dashboard` `ingress`等)；接着介绍一些集群操作场景和思路；然后介绍一些应用部署实践，请根据这份[目录](docs/guide/index.md)阅读你所感兴趣的内容。尚在更新中...
+基本k8s集群安装完成后，需要安装一些常用插件(`kubedns` `dashboard` `ingress`等)；接着介绍一些集群操作场景和思路；然后介绍一些应用部署实践，请根据这份[目录](docs/guide/index.md)阅读你所感兴趣的内容。
 
 ## 参考阅读
 
@@ -52,7 +52,3 @@
 Copyright 2017 gjmzj (jmgaozz@163.com)
 
 Apache License 2.0，详情见 [LICENSE](LICENSE) 文件。
-
-如果觉得这份文档对你有帮助，请支付宝扫描下方的二维码进行捐赠，谢谢！
-
-![donate](./pics/alipay.png) 
