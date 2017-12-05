@@ -6,7 +6,7 @@ kubectl使用~/.kube/config 配置文件与kube-apiserver进行交互，且拥�
 ``` bash
 roles/kubectl
 ├── tasks
-│   └── main.yml
+│   └── main.yml
 └── templates
     └── admin-csr.json.j2
 ```
@@ -25,8 +25,8 @@ roles/kubectl
   "names": [
     {
       "C": "CN",
-      "ST": "HangZhou",
-      "L": "XS",
+      "ST": "ShangHai",
+      "L": "ShangHai",
       "O": "system:masters",
       "OU": "System"
     }
