@@ -3,7 +3,7 @@
 以下为快速体验k8s集群的测试、开发环境--AllinOne部署，觉得比官方的minikube方便、简单很多。
 
 ### 1.准备一台虚机(推荐内存3G，硬盘20G以上)，最小化安装Ubuntu16.04 server，配置基础网络、更新源、SSH登陆等。
-### 2.安装python2/git/python-pip/ansible
+### 2.安装git/python-pip/ansible
 ``` bash
 # 文档中脚本默认均以root用户执行
 yum repolist && yum update -y && yum install -y conntrack-tools
