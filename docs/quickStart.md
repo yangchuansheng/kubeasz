@@ -6,20 +6,22 @@
 ### 2.安装python2/git/python-pip/ansible
 ``` bash
 # 文档中脚本默认均以root用户执行
-apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
-# 删除不要的默认安装
-apt-get purge ufw lxd lxd-client lxcfs lxc-common
+yum repolist && yum update -y && yum install -y conntrack-tools
+# 关闭 selinux
+setenforce 0
+修改/etc/selinux/config 文件
+将SELINUX=enforcing改为SELINUX=disabled
+# 关闭 firewalld 服务
+systemctl stop firewalld && systemctl disable firewalld
 # 安装依赖工具
-apt-get install python2.7 git python-pip
-# Ubuntu16.04可能需要配置以下软连接
-ln -s /usr/bin/python2.7 /usr/bin/python
+yum install -y git python2-pip
 # 安装ansible (国内如果安装太慢可以直接用pip阿里云加速)
 #pip install pip --upgrade
 #pip install ansible
 pip install pip --upgrade -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 pip install --no-cache-dir ansible -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 # 配置ansible ssh密钥登陆
-ssh-keygen -t rsa -b 2048 回车 回车 回车
+ssh-keygen -t rsa -b 2048 -N "" -f /root/.ssh/id_rsa
 ssh-copy-id $IP #$IP为本虚机地址，按照提示输入yes 和root密码
 ```
 ### 3.安装kubernetes集群
