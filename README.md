@@ -21,7 +21,7 @@
 1. docker	17.09.0-ce
 1. calico/node	v2.6.2p
 
-附：集群用到的所有二进制文件已打包好供下载 [https://pan.baidu.com/s/1eSetFSA](https://pan.baidu.com/s/1eSetFSA)
+附：集群用到的所有二进制文件已打包好供下载 [k8s.184.tar.gz](http://default-1252251317.cossh.myqcloud.com/k8s.184.tar.gz)
 
 ## 快速指南
 
