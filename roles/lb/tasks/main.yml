@@ -1,20 +1,17 @@
 
-- name: apt更新缓存刷新
-  apt: update_cache=yes cache_valid_time=72000
-
 - name: 安装 haproxy
-  apt: name=haproxy state=latest
+  yum: name=haproxy state=latest
 
-- name: 创建haproxy配置目录
+- name: 创建 haproxy 配置目录
   file: name=/etc/haproxy state=directory
 
 - name: 配置 haproxy
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
 
 - name: 安装 keepalived
-  apt: name=keepalived state=latest
+  yum: name=keepalived state=latest
 
-- name: 创建keepalived配置目录
+- name: 创建 keepalived 配置目录
   file: name=/etc/keepalived state=directory
 
 - name: 配置 keepalived 主节点
@@ -25,8 +22,8 @@
   template: src=keepalived-backup.conf.j2 dest=/etc/keepalived/keepalived.conf
   when: LB_ROLE == "backup"
 
-- name: 重启haproxy服务
+- name: 重启 haproxy 服务
   shell: systemctl enable haproxy && systemctl restart haproxy
 
-- name: 重启keepalived服务
+- name: 重启 keepalived 服务
   shell: systemctl enable keepalived && systemctl restart keepalived
