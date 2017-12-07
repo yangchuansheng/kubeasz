@@ -100,30 +100,38 @@ WantedBy=multi-user.target
 
 ### 启动calico-node
 
-### 准备cni-calico配置文件 [cni-calico.conf.j2](../roles/calico/templates/cni-calico.conf.j2)
+### 准备cni-calico配置文件 [cni-calico.conflist.j2](../roles/calico/templates/cni-calico.conflist.j2)
 
 ``` bash
 {
-    "name": "calico-k8s-network",
-    "cniVersion": "0.1.0",
-    "type": "calico",
-    "etcd_endpoints": "{{ ETCD_ENDPOINTS }}",
-    "etcd_key_file": "/etc/calico/ssl/etcd-key.pem",
-    "etcd_cert_file": "/etc/calico/ssl//etcd.pem",
-    "etcd_ca_cert_file": "/etc/calico/ssl/ca.pem",
-    "log_level": "info",
-    "mtu": 1500,
-    "ipam": {
-        "type": "calico-ipam"
+  "name": "k8s-pod-network",
+  "cniVersion": "0.3.0",
+  "plugins": [
+    {
+      "type": "calico",
+      "etcd_endpoints": "{{ ETCD_ENDPOINTS }}",
+      "etcd_key_file": "/etc/calico/ssl/calico-key.pem",
+      "etcd_cert_file": "/etc/calico/ssl/calico.pem",
+      "etcd_ca_cert_file": "/etc/calico/ssl/ca.pem",
+      "log_level": "info",
+      "mtu": 1500,
+      "ipam": {
+          "type": "calico-ipam"
+      },
+      "policy": {
+          "type": "k8s"
+      },
+      "kubernetes": {
+          "kubeconfig": "/root/.kube/config"
+      }
     },
-    "policy": {
-        "type": "k8s"
-    },
-    "kubernetes": {
-        "kubeconfig": "/root/.kube/config"
+    {
+      "type": "portmap",
+      "snat": true,
+      "capabilities": {"portMappings": true}
     }
+  ]
 }
-
 ```
 + 主要配置etcd相关、ipam、policy等，配置选项[参考](https://docs.projectcalico.org/v2.6/reference/cni-plugin/configuration)
 
