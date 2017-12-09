@@ -115,6 +115,11 @@ curl -s -S "https://registry.hub.docker.com/v2/repositories/$@/tags/" | jq '."re
 ``` bash
 wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -ivh epel-release-latest-7.noarch.rpm
+sed -e 's!^mirrorlist=!#mirrorlist=!g' \
+    -e 's!^#baseurl=!baseurl=!g' \
+    -e 's!//download\.fedoraproject\.org/pub!//mirrors.ustc.edu.cn!g' \
+    -e 's!http://mirrors\.ustc!https://mirrors.ustc!g' \
+    -i /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel-testing.repo
 yum install jq
 ```
 
@@ -128,12 +133,10 @@ journalctl -u docker # 运行日志
 docker version
 docker info
 ```
-`iptables-save|grep FORWARD` 查看 iptables filter表 FORWARD链，最后要有一个 `-A FORWARD -j ACCEPT` 保底允许规则
+`iptables -S|grep FORWARD` 查看 iptables filter表 FORWARD链，最后要有一个 `-A FORWARD -j ACCEPT` 保底允许规则
 
 ``` bash
-iptables-save|grep FORWARD
-:FORWARD ACCEPT [0:0]
-:FORWARD DROP [0:0]
+iptables -S|grep FORWARD
 -A FORWARD -j DOCKER-USER
 -A FORWARD -j DOCKER-ISOLATION
 -A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
