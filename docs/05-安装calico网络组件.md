@@ -46,9 +46,32 @@ roles/calico/
 ```
 请在另外窗口打开[roles/calico/tasks/main.yml](../roles/calico/tasks/main.yml) 文件，对照看以下讲解内容。
 
-### 准备与etcd集群交互的证书
+### 创建calico 证书申请
 
-这里为了方便直接复制使用了etcd1节点的证书
+``` bash
+{
+  "CN": "calico",
+  "hosts": [],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "CN",
+      "ST": "HangZhou",
+      "L": "XS",
+      "O": "k8s",
+      "OU": "System"
+    }
+  ]
+}
+```
+- calico 使用客户端证书，所以hosts字段可以为空；后续可以看到calico证书用在四个地方：
+  - calico/node 这个docker 容器运行时访问 etcd 使用证书
+  - cni 配置文件中，cni 插件需要访问 etcd 使用证书
+  - calicoctl 操作集群网络时访问 etcd 使用证书
+  - calico/kube-controllers 同步集群网络策略时访问 etcd 使用证书
 
 ### 创建 calico-node 的服务文件 [calico-node.service.j2](../roles/calico/templates/calico-node.service.j2)
 
